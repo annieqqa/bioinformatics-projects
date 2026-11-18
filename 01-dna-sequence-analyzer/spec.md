@@ -52,6 +52,10 @@ Add instance method `find_protein_coding_regions(self) -> list[DNASequence]` to 
 
 **Protein-coding region** is the sequence of DNA that codes for the production of proteins [2][2]. The protein-coding region begins with a start codon (`ATG`) and ends with a stop codon (`TAA`, `TAG`, `TGA`).
 
+# Testing
+
+The tests are stored in `tests` directory. To run the tests, run `pytest` in project root (in this case, `01-dna-sequence-analyzer`)
+
 # Learning Objectives
 1. Introduce myself to sequence analysis
 2. Work with sequence files on a low level
