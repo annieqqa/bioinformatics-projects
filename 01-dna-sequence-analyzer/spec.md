@@ -6,13 +6,17 @@
 
 Create a function `read_DNA(rel_path: Path)->list[DNASequence]` that takes in a Path object corresponding to a DNA sequence data (from `pathlib`) and output a list of DNA sequences in the file.
 
+## Define relevant classes
+
+Define `DNASequence`, `RNASequence` and `Nucleotide` classes.
+
 ## Count A, T, G, C nucleotides
 
-Create a function `count_nucleotides(dna: DNASequence) -> dict[Nucleotide, int]` that takes in a DNA sequence and returns a dictionary mapping each nucleotide type to its count.
+Add instance method `count_nucleotides(self) -> dict[Nucleotide, int]` to `DNASequence` that returns a dictionary mapping each nucleotide type to its count in the sequence.
 
 ## Calculate GC content
 
-Create a function `calc_GC_content(dna: DNASequence) -> float` that takes in a DNA sequence and return its GC content.
+Add instance method `calc_GC_content(self) -> float` to `DNASequence` that returns the GC content of the DNA sequence.
 
 **GC content** is the percentage of nucleotides containing the bases guanine and cytosine relative to the total nucleotide base content in a sample of DNA or RNA [1][1]. It is given by the formula:
 
@@ -22,7 +26,7 @@ $$
 
 ## Identify DNA complement sequences.
 
-Create a function `DNA_complement(dna: DNASequence) -> DNASequence` that takes in a DNA sequence and output its complement sequence. The mapping of each type of nucleotide is given by: $A\to T$,$T\to A$, $C \to G$, $G\to C$.
+Add instance method `get_complement(self) -> DNASequence` to `DNASequence` that returns its complement sequence. The mapping of each type of nucleotide is given by: $A\to T$,$T\to A$, $C \to G$, $G\to C$.
 
 | Nucleotide type | Complement |
 | -- | -- |
@@ -33,7 +37,7 @@ Create a function `DNA_complement(dna: DNASequence) -> DNASequence` that takes i
 
 ## Convert DNA into RNA
 
-Create a function `DNA_to_RNA(dna: DNASequence) -> RNASequence` that takes a DNA sequence and output its corresponding RNA sequence. The mapping works as follows:
+Add instance method `to_RNA(self) -> RNASequence`to `DNASequence` that returns its corresponding RNA sequence. The mapping works as follows:
 
 | DNA Nucleotide | RNA Nucleotide |
 | -- | -- |
@@ -44,7 +48,7 @@ Create a function `DNA_to_RNA(dna: DNASequence) -> RNASequence` that takes a DNA
 
 ## Find possible protein-coding regions
 
-Create a function `find_protein_coding_regions(dna: DNASequence) -> list[DNASequence]` that takes in a DNA sequence and returns a list of all possible protein-coding regions.
+Add instance method `find_protein_coding_regions(self) -> list[DNASequence]` to `DNASequence` that returns a list of all possible protein-coding regions.
 
 **Protein-coding region** is the sequence of DNA that codes for the production of proteins [2][2]. The protein-coding region begins with a start codon (`ATG`) and ends with a stop codon (`TAA`, `TAG`, `TGA`).
 
