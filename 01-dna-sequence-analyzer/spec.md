@@ -59,5 +59,5 @@ At the first stage I want to try not to use external libraries to understand thi
 
 In later stages when I get more familiar with bioinformatics, I will refactor this to using standard libraries.
 
-* [1]: <https://www.oxfordreference.com/display/10.1093/acref/9780198821489.001.0001/acref-9780198821489-e-6618> "GC content (G + C content), Oxford Reference"
-* [2]: <https://www.genomicseducation.hee.nhs.uk/glossary/protein-coding-region/> "Protein-coding region, Genomics Education Programme"
+[1]: <https://www.oxfordreference.com/display/10.1093/acref/9780198821489.001.0001/acref-9780198821489-e-6618> "GC content (G + C content), Oxford Reference"
+[2]: <https://www.genomicseducation.hee.nhs.uk/glossary/protein-coding-region/> "Protein-coding region, Genomics Education Programme"
