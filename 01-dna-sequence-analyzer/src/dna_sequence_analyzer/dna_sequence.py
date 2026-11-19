@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .nucleotide import Nucleotide
+from .dna_nucleotide import DNANucleotide
 from .rna_sequence import RNASequence
 
 
@@ -8,19 +8,19 @@ class DNASequence:
     """Represents a DNASequence."""
 
     # Fields
-    __dna_complement: dict[Nucleotide, Nucleotide]
-    __dna_sequence: list[Nucleotide]
+    __dna_complement: dict[DNANucleotide, DNANucleotide]
+    __dna_sequence: list[DNANucleotide]
 
-    def __init__(self, dna_sequence: list[Nucleotide]) -> None:
-        self.__dna_complement: dict[Nucleotide, Nucleotide] = {
-            Nucleotide.A: Nucleotide.T,
-            Nucleotide.T: Nucleotide.A,
-            Nucleotide.C: Nucleotide.G,
-            Nucleotide.G: Nucleotide.C,
+    def __init__(self, dna_sequence: list[DNANucleotide]) -> None:
+        self.__dna_complement: dict[DNANucleotide, DNANucleotide] = {
+            DNANucleotide.A: DNANucleotide.T,
+            DNANucleotide.T: DNANucleotide.A,
+            DNANucleotide.C: DNANucleotide.G,
+            DNANucleotide.G: DNANucleotide.C,
         }
         self.__dna_sequence = dna_sequence
 
-    def count_nucleotides(self) -> dict[Nucleotide, int]:
+    def count_nucleotides(self) -> dict[DNANucleotide, int]:
         raise NotImplementedError
     
     def calc_GC_content(self) -> float:
