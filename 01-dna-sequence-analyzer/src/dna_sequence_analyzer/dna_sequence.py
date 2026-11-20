@@ -26,9 +26,18 @@ class DNASequence:
         for nucleotide in self.__dna_sequence:
             count[nucleotide] += 1
         return count
-    
+
+
     def calc_GC_content(self) -> float:
-        raise NotImplementedError
+        """Returns the GC content of the DNA sequence.
+        If number of nucleotides is 0, return error value (-1)."""
+        count = self.count_nucleotides()
+        return self.__get_GC(
+            count[DNANucleotide.A],
+            count[DNANucleotide.T],
+            count[DNANucleotide.G],
+            count[DNANucleotide.C],
+        )
 
     def get_complement(self) -> DNASequence:
         raise NotImplementedError
@@ -38,3 +47,15 @@ class DNASequence:
 
     def find_protein_coding_regions(self) -> list[DNASequence]:
         raise NotImplementedError
+
+    # HELPER METHODS (PRIVATE TO CLASS)
+    @staticmethod
+    def __get_GC(a: int, t: int, g: int, c: int) -> float:
+        """Calculates the GC content given the count of a,t,g,c nucleotides"""
+        gc: int = g + c
+        atgc: int = a + t + gc
+        # return error value (-1) for zero division
+        if atgc == 0:
+            return -1
+        # return GC content for non-zero number of nucleotides
+        return gc / (a + t + gc)

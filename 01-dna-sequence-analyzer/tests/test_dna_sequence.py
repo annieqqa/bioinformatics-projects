@@ -1,3 +1,5 @@
+import math
+
 from dna_sequence_analyzer.dna_nucleotide import DNANucleotide
 from dna_sequence_analyzer.dna_sequence import DNASequence
 
@@ -39,3 +41,19 @@ class TestCountNucleotides:
             DNANucleotide.C: 2,
             DNANucleotide.G: 0,
         }
+
+class TestCalcGCContent:
+    def test_error_value_returned_for_empty_DNASequence(self):
+        dna: DNASequence = DNASequence([])
+        assert math.isclose(dna.calc_GC_content(), -1)
+
+    def test_correct_gc_value_is_returned(self):
+        dna: DNASequence = DNASequence(
+            [DNANucleotide.A] * 123
+            + [DNANucleotide.T] * 231
+            + [DNANucleotide.C] * 892
+            + [DNANucleotide.G] * 129
+        )
+        assert math.isclose(
+            dna.calc_GC_content(), (892 + 129) / (123 + 231 + 892 + 129)
+        )
