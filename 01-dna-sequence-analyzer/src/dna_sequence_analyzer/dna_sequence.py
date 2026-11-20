@@ -31,15 +31,15 @@ class DNASequence:
     """Represents a DNASequence."""
 
     # Fields
-    __dna_sequence: list[DNANucleotide]
+    __dna_nucleotides: list[DNANucleotide]
 
-    def __init__(self, dna_sequence: list[DNANucleotide]) -> None:
-        self.__dna_sequence = dna_sequence
+    def __init__(self, dna_nucleotides: list[DNANucleotide]) -> None:
+        self.__dna_nucleotides = dna_nucleotides
 
     def count_nucleotides(self) -> dict[DNANucleotide, int]:
         """Returns a dictionary mapping each nucleotide type to its count in the sequence."""
         count: dict[DNANucleotide, int] = {dn: 0 for dn in DNANucleotide}
-        for nucleotide in self.__dna_sequence:
+        for nucleotide in self.__dna_nucleotides:
             count[nucleotide] += 1
         return count
 
@@ -57,11 +57,11 @@ class DNASequence:
 
     def get_complement(self) -> DNASequence:
         """Returns complement sequence."""
-        return DNASequence([_DNA_COMPLEMENT[dn] for dn in self.__dna_sequence])
+        return DNASequence([_DNA_COMPLEMENT[dn] for dn in self.__dna_nucleotides])
 
     def to_RNA(self) -> RNASequence:
         """Returns corresponding rna sequence after transcription."""
-        return RNASequence([_DNA_RNA_MAP[dn] for dn in self.__dna_sequence])
+        return RNASequence([_DNA_RNA_MAP[dn] for dn in self.__dna_nucleotides])
 
     def find_protein_coding_regions(self) -> list[DNASequence]:
         raise NotImplementedError
@@ -71,7 +71,7 @@ class DNASequence:
         """Equality holds when nucleotide sequence is the same"""
         if not isinstance(other, DNASequence):
             return NotImplemented
-        return self.__dna_sequence == other.__dna_sequence
+        return self.__dna_nucleotides == other.__dna_nucleotides
     # HELPER METHODS (PRIVATE TO CLASS)
     @staticmethod
     def __get_GC(a: int, t: int, g: int, c: int) -> float:
