@@ -26,17 +26,7 @@ class TestCountNucleotides:
             DNANucleotide.C: 1,
             DNANucleotide.G: 1,
         }
-        dna2: DNASequence = DNASequence(
-            [
-                DNANucleotide.T,
-                DNANucleotide.A,
-                DNANucleotide.A,
-                DNANucleotide.C,
-                DNANucleotide.A,
-                DNANucleotide.T,
-                DNANucleotide.C,
-            ]
-        )
+        dna2: DNASequence = DNASequence([DNANucleotide[n] for n in "TAACATC"])
         assert dna2.count_nucleotides() == {
             DNANucleotide.A: 3,
             DNANucleotide.T: 2,
@@ -67,51 +57,13 @@ class TestGetComplement:
         assert dna.get_complement() == DNASequence([])
 
     def test_correct_complement_is_returned(self):
-        dna: DNASequence = DNASequence(
-            [
-                DNANucleotide.T,
-                DNANucleotide.A,
-                DNANucleotide.A,
-                DNANucleotide.C,
-                DNANucleotide.A,
-                DNANucleotide.T,
-                DNANucleotide.C,
-            ]
-        )
+        dna: DNASequence = DNASequence([DNANucleotide[n] for n in "TAACATC"])
         assert dna.get_complement() == DNASequence(
-            [
-                DNANucleotide.A,
-                DNANucleotide.T,
-                DNANucleotide.T,
-                DNANucleotide.G,
-                DNANucleotide.T,
-                DNANucleotide.A,
-                DNANucleotide.G,
-            ]
+            [DNANucleotide[n] for n in "ATTGTAG"]
         )
 
 
 class TestToRNA:
     def test_empty_dna_maps_to_empty_rna(self):
-        dna: DNASequence = DNASequence(
-            [
-                DNANucleotide.T,
-                DNANucleotide.A,
-                DNANucleotide.A,
-                DNANucleotide.C,
-                DNANucleotide.A,
-                DNANucleotide.T,
-                DNANucleotide.C,
-            ]
-        )
-        assert dna.to_RNA() == RNASequence(
-            [
-                RNANucleotide.U,
-                RNANucleotide.A,
-                RNANucleotide.A,
-                RNANucleotide.C,
-                RNANucleotide.A,
-                RNANucleotide.U,
-                RNANucleotide.C,
-            ]
-        )
+        dna: DNASequence = DNASequence([DNANucleotide[n] for n in "TAACATC"])
+        assert dna.to_RNA() == RNASequence([RNANucleotide[n] for n in "UAACAUC"])
