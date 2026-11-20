@@ -3,6 +3,8 @@ from __future__ import annotations
 from types import MappingProxyType
 from typing import override
 
+from dna_sequence_analyzer.rna_nucleotide import RNANucleotide
+
 from .dna_nucleotide import DNANucleotide
 from .rna_sequence import RNASequence
 
@@ -14,6 +16,16 @@ _DNA_COMPLEMENT: MappingProxyType[DNANucleotide, DNANucleotide] = MappingProxyTy
         DNANucleotide.G: DNANucleotide.C,
     }
 )
+
+_DNA_RNA_MAP: MappingProxyType[DNANucleotide, RNANucleotide] = MappingProxyType(
+    {
+        DNANucleotide.A: RNANucleotide.A,
+        DNANucleotide.T: RNANucleotide.U,
+        DNANucleotide.C: RNANucleotide.C,
+        DNANucleotide.G: RNANucleotide.G,
+    }
+)
+
 
 class DNASequence:
     """Represents a DNASequence."""
@@ -48,7 +60,8 @@ class DNASequence:
         return DNASequence([_DNA_COMPLEMENT[dn] for dn in self.__dna_sequence])
 
     def to_RNA(self) -> RNASequence:
-        raise NotImplementedError
+        """Returns corresponding rna sequence after transcription."""
+        return RNASequence([_DNA_RNA_MAP[dn] for dn in self.__dna_sequence])
 
     def find_protein_coding_regions(self) -> list[DNASequence]:
         raise NotImplementedError

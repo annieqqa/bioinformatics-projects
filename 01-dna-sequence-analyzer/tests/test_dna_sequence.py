@@ -2,6 +2,8 @@ import math
 
 from dna_sequence_analyzer.dna_nucleotide import DNANucleotide
 from dna_sequence_analyzer.dna_sequence import DNASequence
+from dna_sequence_analyzer.rna_nucleotide import RNANucleotide
+from dna_sequence_analyzer.rna_sequence import RNASequence
 
 
 class TestCountNucleotides:
@@ -85,5 +87,31 @@ class TestGetComplement:
                 DNANucleotide.T,
                 DNANucleotide.A,
                 DNANucleotide.G,
+            ]
+        )
+
+
+class TestToRNA:
+    def test_empty_dna_maps_to_empty_rna(self):
+        dna: DNASequence = DNASequence(
+            [
+                DNANucleotide.T,
+                DNANucleotide.A,
+                DNANucleotide.A,
+                DNANucleotide.C,
+                DNANucleotide.A,
+                DNANucleotide.T,
+                DNANucleotide.C,
+            ]
+        )
+        assert dna.to_RNA() == RNASequence(
+            [
+                RNANucleotide.U,
+                RNANucleotide.A,
+                RNANucleotide.A,
+                RNANucleotide.C,
+                RNANucleotide.A,
+                RNANucleotide.U,
+                RNANucleotide.C,
             ]
         )
