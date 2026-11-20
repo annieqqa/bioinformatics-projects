@@ -57,3 +57,33 @@ class TestCalcGCContent:
         assert math.isclose(
             dna.calc_GC_content(), (892 + 129) / (123 + 231 + 892 + 129)
         )
+
+
+class TestGetComplement:
+    def test_empty_dna_sequence_has_empty_complement_sequence(self):
+        dna: DNASequence = DNASequence([])
+        assert dna.get_complement() == DNASequence([])
+
+    def test_correct_complement_is_returned(self):
+        dna: DNASequence = DNASequence(
+            [
+                DNANucleotide.T,
+                DNANucleotide.A,
+                DNANucleotide.A,
+                DNANucleotide.C,
+                DNANucleotide.A,
+                DNANucleotide.T,
+                DNANucleotide.C,
+            ]
+        )
+        assert dna.get_complement() == DNASequence(
+            [
+                DNANucleotide.A,
+                DNANucleotide.T,
+                DNANucleotide.T,
+                DNANucleotide.G,
+                DNANucleotide.T,
+                DNANucleotide.A,
+                DNANucleotide.G,
+            ]
+        )

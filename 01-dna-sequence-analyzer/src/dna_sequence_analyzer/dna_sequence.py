@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import override
+
 from .dna_nucleotide import DNANucleotide
 from .rna_sequence import RNASequence
 
@@ -40,7 +42,8 @@ class DNASequence:
         )
 
     def get_complement(self) -> DNASequence:
-        raise NotImplementedError
+        """Returns complement sequence."""
+        return DNASequence([self.__dna_complement[dn] for dn in self.__dna_sequence])
 
     def to_RNA(self) -> RNASequence:
         raise NotImplementedError
@@ -48,6 +51,12 @@ class DNASequence:
     def find_protein_coding_regions(self) -> list[DNASequence]:
         raise NotImplementedError
 
+    @override
+    def __eq__(self, other: object) -> bool:
+        """Equality holds when nucleotide sequence is the same"""
+        if not isinstance(other, DNASequence):
+            return NotImplemented
+        return self.__dna_sequence == other.__dna_sequence
     # HELPER METHODS (PRIVATE TO CLASS)
     @staticmethod
     def __get_GC(a: int, t: int, g: int, c: int) -> float:
