@@ -21,6 +21,7 @@ class DNASequence:
         self.__dna_sequence = dna_sequence
 
     def count_nucleotides(self) -> dict[DNANucleotide, int]:
+        """Returns a dictionary mapping each nucleotide type to its count in the sequence."""
         count: dict[DNANucleotide, int] = {dn: 0 for dn in DNANucleotide}
         for nucleotide in self.__dna_sequence:
             count[nucleotide] += 1
