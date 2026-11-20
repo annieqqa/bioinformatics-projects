@@ -5,21 +5,20 @@ from typing import override
 from .dna_nucleotide import DNANucleotide
 from .rna_sequence import RNASequence
 
+_DNA_COMPLEMENT: dict[DNANucleotide, DNANucleotide] = {
+    DNANucleotide.A: DNANucleotide.T,
+    DNANucleotide.T: DNANucleotide.A,
+    DNANucleotide.C: DNANucleotide.G,
+    DNANucleotide.G: DNANucleotide.C,
+}
 
 class DNASequence:
     """Represents a DNASequence."""
 
     # Fields
-    __dna_complement: dict[DNANucleotide, DNANucleotide]
     __dna_sequence: list[DNANucleotide]
 
     def __init__(self, dna_sequence: list[DNANucleotide]) -> None:
-        self.__dna_complement: dict[DNANucleotide, DNANucleotide] = {
-            DNANucleotide.A: DNANucleotide.T,
-            DNANucleotide.T: DNANucleotide.A,
-            DNANucleotide.C: DNANucleotide.G,
-            DNANucleotide.G: DNANucleotide.C,
-        }
         self.__dna_sequence = dna_sequence
 
     def count_nucleotides(self) -> dict[DNANucleotide, int]:
@@ -43,7 +42,7 @@ class DNASequence:
 
     def get_complement(self) -> DNASequence:
         """Returns complement sequence."""
-        return DNASequence([self.__dna_complement[dn] for dn in self.__dna_sequence])
+        return DNASequence([_DNA_COMPLEMENT[dn] for dn in self.__dna_sequence])
 
     def to_RNA(self) -> RNASequence:
         raise NotImplementedError
