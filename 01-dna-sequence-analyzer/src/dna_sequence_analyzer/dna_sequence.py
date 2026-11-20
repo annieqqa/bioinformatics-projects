@@ -1,16 +1,19 @@
 from __future__ import annotations
 
+from types import MappingProxyType
 from typing import override
 
 from .dna_nucleotide import DNANucleotide
 from .rna_sequence import RNASequence
 
-_DNA_COMPLEMENT: dict[DNANucleotide, DNANucleotide] = {
-    DNANucleotide.A: DNANucleotide.T,
-    DNANucleotide.T: DNANucleotide.A,
-    DNANucleotide.C: DNANucleotide.G,
-    DNANucleotide.G: DNANucleotide.C,
-}
+_DNA_COMPLEMENT: MappingProxyType[DNANucleotide, DNANucleotide] = MappingProxyType(
+    {
+        DNANucleotide.A: DNANucleotide.T,
+        DNANucleotide.T: DNANucleotide.A,
+        DNANucleotide.C: DNANucleotide.G,
+        DNANucleotide.G: DNANucleotide.C,
+    }
+)
 
 class DNASequence:
     """Represents a DNASequence."""
