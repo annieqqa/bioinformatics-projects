@@ -21,7 +21,10 @@ class DNASequence:
         self.__dna_sequence = dna_sequence
 
     def count_nucleotides(self) -> dict[DNANucleotide, int]:
-        raise NotImplementedError
+        count: dict[DNANucleotide, int] = {dn: 0 for dn in DNANucleotide}
+        for nucleotide in self.__dna_sequence:
+            count[nucleotide] += 1
+        return count
     
     def calc_GC_content(self) -> float:
         raise NotImplementedError
