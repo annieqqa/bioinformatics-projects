@@ -67,3 +67,25 @@ class TestToRNA:
     def test_empty_dna_maps_to_empty_rna(self):
         dna: DNASequence = DNASequence([DNANucleotide[n] for n in "TAACATC"])
         assert dna.to_RNA() == RNASequence([RNANucleotide[n] for n in "UAACAUC"])
+
+
+class TestFindPCR:
+    def test_PCR_with_no_matches_returns_empty_list(self):
+        dna: DNASequence = DNASequence([DNANucleotide[n] for n in "ATGA"])
+        assert dna.find_protein_coding_regions() == []
+
+    def test_PCR_with_non_overlapping_matches(self):
+        dna: DNASequence = DNASequence([DNANucleotide[n] for n in "ATGTAAATGTGAATGTAG"])
+        assert dna.find_protein_coding_regions() == [
+            DNASequence([DNANucleotide[n] for n in "ATGTAA"]),
+            DNASequence([DNANucleotide[n] for n in "ATGTGA"]),
+            DNASequence([DNANucleotide[n] for n in "ATGTAG"]),
+        ]
+
+    def test_PCR_with_overlapping_matches(self):
+        dna: DNASequence = DNASequence([DNANucleotide[n] for n in "ATGTAATGTGATGTAG"])
+        assert dna.find_protein_coding_regions() == [
+            DNASequence([DNANucleotide[n] for n in "ATGTAA"]),
+            DNASequence([DNANucleotide[n] for n in "ATGTGA"]),
+            DNASequence([DNANucleotide[n] for n in "ATGTAG"]),
+        ]

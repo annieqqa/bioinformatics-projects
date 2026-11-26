@@ -26,6 +26,13 @@ _DNA_RNA_MAP: MappingProxyType[DNANucleotide, RNANucleotide] = MappingProxyType(
     }
 )
 
+_START_CODONS: list[list[DNANucleotide]] = [[DNANucleotide[n] for n in "ATG"]]
+_END_CODONS: list[list[DNANucleotide]] = [
+    [DNANucleotide[n] for n in "TAA"],
+    [DNANucleotide[n] for n in "TGA"],
+    [DNANucleotide[n] for n in "TAG"],
+]
+
 
 class DNASequence:
     """Represents a DNASequence."""
@@ -64,7 +71,37 @@ class DNASequence:
         return RNASequence([_DNA_RNA_MAP[dn] for dn in self.__dna_nucleotides])
 
     def find_protein_coding_regions(self) -> list[DNASequence]:
-        raise NotImplementedError
+        """Returns a list of all possible protein-coding regions."""
+        res: list[DNASequence] = []
+        start: list[int] = []  # indexes of start codons
+        end: list[int] = []  # indexes of end codons
+        n: int = len(self.__dna_nucleotides)  # length of sequence
+
+        for i in range(n - 2):
+            codon = self.__dna_nucleotides[i : i + 3]
+            if codon in _START_CODONS:
+                start.append(i)
+            elif codon in _END_CODONS:
+                end.append(i)
+
+        end_idx: int = 0
+        end_len: int = len(end)
+
+        for start_pos in start:
+            # find the first end_idx where the end codon comes after the start codon
+            while end_idx < end_len and end[end_idx] < start_pos + 3:
+                end_idx += 1
+
+            # no end codon comes after the start codon, so return the results
+            if end_idx == end_len:
+                break
+
+            # add the sequence to the list of results
+            res.append(
+                DNASequence(self.__dna_nucleotides[start_pos : end[end_idx] + 3])
+            )
+
+        return res
 
     @override
     def __eq__(self, other: object) -> bool:
